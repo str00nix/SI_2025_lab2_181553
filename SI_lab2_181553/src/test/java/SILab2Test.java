@@ -43,7 +43,6 @@ public class SILab2Test {
 
 
         //Nodes: 3-5, 8-11, 13-19
-//        Item item4 = new Item("Item4", 1, 100, 0);
         Item item5 = new Item("P3", 3, 200, 0);
         List<Item> items5 = List.of(item5);
         RuntimeException ex5 = assertThrows(RuntimeException.class, () -> {
@@ -69,60 +68,32 @@ public class SILab2Test {
         return SILab2.checkCart(List.of(item), "1234567890123456");
     }
 
-    //TC1: F F F -> price <= 300, discount == 0, quantity <= 10 -> edinstven sluchaj koga nema odzemanje so 30
+    //TC1: T T T -> site делови se T
     @Test
-    public void caseFFF() {
-        double result = returnValue("P1", 9, 299, 0);
-        assertEquals(299 * 9, result);
+    public void caseTTT() {
+        double result = returnValue("P1", 11, 301, 0.3);
+        assertEquals(-30 + 301 * (1 - 0.3) * 11, result);
     }
 
-    //TC2: T F F -> samo quantity > 10 e T
-    @Test
-    public void caseTFF() {
-        double result = returnValue("P2", 11, 299, 0);
-        assertEquals(-30 + 299 * 11, result);
-    }
-
-    //TC3: F T F -> samo price > 300 е T
-    @Test
-    public void caseFTF() {
-        double result = returnValue("P3", 9, 301, 0);
-        assertEquals(-30 + 301 * 9, result);
-    }
-
-    //TC4: F F T -> samo discount > 0 e T
-    @Test
-    public void caseFFT() {
-        double result = returnValue("P4", 9, 299, 0.3);
-        assertEquals(-30 + 299 * (1 - 0.3) * 9, result);
-    }
-
-    //TC5: T T F -> samo discount > 0 е F
-    @Test
-    public void caseTTF() {
-        double result = returnValue("P5", 11, 301, 0);
-        assertEquals(-30 + 301 * 11, result);
-    }
-
-    //TC6: T F T -> samo price > 300 е F
-    @Test
-    public void caseTFT() {
-        double result = returnValue("P6", 11, 299, 0.3);
-        assertEquals(-30 + 299 * (1 - 0.3) * 11, result);
-    }
-
-    //TC7: F T T -> samo quantity > 10 e F
+    //TC2: F T T -> samo quantity > 10 e F
     @Test
     public void caseFTT() {
-        double result = returnValue("P7", 9, 301, 0.3);
+        double result = returnValue("P2", 9, 301, 0.3);
         assertEquals(-30 + 301 * (1 - 0.3) * 9, result);
     }
 
-    //TC8: T T T -> site делови se F
+    //TC3: F F T -> samo discount > 0 e T
     @Test
-    public void caseTTT() {
-        double result = returnValue("P8", 11, 301, 0.3);
-        assertEquals(-30 + 301 * (1 - 0.3) * 11, result);
+    public void caseFFT() {
+        double result = returnValue("P3", 9, 299, 0.3);
+        assertEquals(-30 + 299 * (1 - 0.3) * 9, result);
+    }
+
+    //TC4: F F F -> price <= 300, discount == 0, quantity <= 10 -> edinstven sluchaj koga nema odzemanje so 30
+    @Test
+    public void caseFFF() {
+        double result = returnValue("P4", 9, 299, 0);
+        assertEquals(299 * 9, result);
     }
 
 }
